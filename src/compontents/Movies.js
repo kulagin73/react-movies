@@ -5,7 +5,7 @@ class Movies extends Component {
 
     render() {
         return (
-            <div>
+            <div className="movies">
                 {this.props.movies.map((elem,index) => {
                     return (
                         <Movie key={index} movie={elem}/>

@@ -28,6 +28,20 @@
   color: #61dafb;
 }
 
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  grid-gap: 30px;
+}
+
+.movies-header {
+  padding: 0 1rem;
+}
+
+label:not(:last-child) {
+  margin-right: 30px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
