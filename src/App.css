@@ -34,6 +34,10 @@
   grid-gap: 30px;
 }
 
+.search__block {
+  padding: 30px 0;
+}
+
 .movies-header {
   padding: 0 1rem;
 }
@@ -41,6 +45,18 @@
 label:not(:last-child) {
   margin-right: 30px;
 }
+
+.relative {
+  position:relative;
+}
+
+.search-btn {
+  position: absolute !important;
+  top:40%;
+  right: 0;
+  transform: translateY(-50%);
+}
+
 
 @keyframes App-logo-spin {
   from {

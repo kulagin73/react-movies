@@ -6,24 +6,30 @@ import Movies from './compontents/Movies';
 import Search from './compontents/Search';
 import Header from './compontents/Header';
 
+const API_KEY = process.env.REACT_APP_API_KEY;
+
 class App extends Component {
    constructor() {
       super()
       this.state ={
-        movies : []
+        movies : [],
+        load:true
       }
    }
 
    componentDidMount() {
-      fetch('http://www.omdbapi.com/?apikey=8ddd0e4a&s=matrix')
+      fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=terminator`)
       .then(response => response.json())
-      .then(data => this.setState({movies: data.Search}))
+         .then(data => this.setState({ movies: data.Search, load: false}))
    }
 
    searchMovies = (str,searchType = 'all') => {
-      fetch(`http://www.omdbapi.com/?apikey=8ddd0e4a&s=${str}${searchType !== 'all' ? `&type=${searchType}` : ''}`)
-         .then(response => response.json())
-         .then(data => this.setState({movies: data.Search}))
+      this.setState({load: true})
+      fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${str ? str : 'terminator'}${searchType === 'all' ? `` : `&type=${searchType}`}`)
+            .then(response => response.json())
+            .then(data => this.setState({ movies: data.Search, load: false }))
+            .catch(err => console.log(err));
+      
    }
 
    render() {
@@ -31,7 +37,7 @@ class App extends Component {
          <div>
             <Header searchMovies={this.searchMovies}/>
             <Search cb={this.searchMovies} />
-               {this.state.movies.length ? <Movies movies={this.state.movies} /> : <Preloader />}
+               {!this.state.load? <Movies movies={this.state.movies} /> : <Preloader />}
          </div>
       );
    }
