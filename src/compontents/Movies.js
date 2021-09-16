@@ -1,17 +1,16 @@
-import { Component } from 'react';
+import React from 'react';
 import Movie from './Movie';
 
-class Movies extends Component {
+const Movies = (props) => {
      
-    render() {
-        return (
-            <div className="container movies">
-                {this.props.movies.map((elem,index) => {
-                    return <Movie key={index} movie={elem}/>
-                })}
-            </div>
-        );
-    }
+    return (
+        <div className="container movies">
+            {props.movies.map((elem,index) => {
+                return <Movie key={index} movie={elem}/>
+            })}
+        </div>
+    );
+    
  }
  
  export default Movies;

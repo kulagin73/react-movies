@@ -1,26 +1,24 @@
-import { Component } from 'react';
+import React,{useState} from 'react';
 
-class Search extends Component {
-    state = {
-        search:'',
-        searchType: 'all'
-    }
+const Search = (props) => {
+    
+    const [search,setSearch] = useState('');
+    const [searchType,setSearchType] = useState('all');
 
-    searchFunc = (e) => {
+    const searchFunc = (e) => {
        if(e.key === 'Enter') {
-           this.props.cb(this.state.search, this.state.searchType);
+           props.cb(search, searchType);
        }
     }
 
-    handleFilter = (e) => {
-        this.setState(() => ({searchType: e.target.dataset.type}),() => {
-            this.props.cb(this.state.search, this.state.searchType);
-        });
+    const handleFilter = (e) => {
+        setSearchType(e.target.dataset.type);
+        props.cb(search, searchType);      
     }
 
-    render() {
-        return (
-            <div className="container search__block">
+    
+    return (
+        <div className="container search__block">
             <div className="row">
                 <div className="col s12 relative">
                     <input 
@@ -28,34 +26,34 @@ class Search extends Component {
                     id="email_inline"
                     type="search"
                     className="validate" 
-                    value={this.state.search}
-                    onChange={(e) => this.setState({search: e.target.value})}
-                    onKeyDown={this.searchFunc}
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onKeyDown={searchFunc}
                     />
-                        <button className="waves-effect waves-light btn-small search-btn" onClick={() => this.props.cb(this.state.search)}>Enter</button>
+                        <button className="waves-effect waves-light btn-small search-btn" onClick={() => props.cb(search)}>Enter</button>
                 </div>
             </div>
             <div className="center">
                 <label>
-                        <input className="with-gap" name="searchName" type="radio" data-type="all" onChange={this.handleFilter} checked={this.state.searchType === 'all'}/>
+                        <input className="with-gap" name="searchName" type="radio" data-type="all" onChange={handleFilter} checked={searchType === 'all'}/>
                     <span>All</span>
                 </label>
                 <label>
-                        <input className="with-gap" name="searchName" type="radio" data-type="movie" onChange={this.handleFilter} checked={this.state.searchType  === 'movie'}/>
+                        <input className="with-gap" name="searchName" type="radio" data-type="movie" onChange={handleFilter} checked={searchType  === 'movie'}/>
                     <span>Movie</span>
                 </label>
                 <label>
-                        <input className="with-gap" name="searchName" type="radio" data-type="series" onChange={this.handleFilter} checked={this.state.searchType  === 'series'}/>
+                        <input className="with-gap" name="searchName" type="radio" data-type="series" onChange={handleFilter} checked={searchType  === 'series'}/>
                     <span>Series</span>
                 </label>
                 <label>
-                        <input className="with-gap" name="searchName" type="radio" data-type="game" onChange={this.handleFilter} checked={this.state.searchType === 'game'}/>
+                        <input className="with-gap" name="searchName" type="radio" data-type="game" onChange={handleFilter} checked={searchType === 'game'}/>
                     <span>Game</span>
                 </label>
             </div>
         </div>
-        )
-    }
+    )
+    
 }
 
 export default Search;
